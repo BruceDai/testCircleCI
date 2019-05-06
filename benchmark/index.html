@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>WebML Benchmark</title>
+    <link rel="stylesheet" href="../examples/third_party/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+      body {
+        font-size: 13px;
+      }
+      canvas {
+        display: none;
+        position: absolute;
+        z-index: -3;
+      }
+      .top-margin {
+        margin-top:10px;
+      }
+      h1, h4 {
+        margin: 24px 0 0;
+      }
+      h1 {
+        font-size: 2.0em;
+      }
+      h4 {
+        font-size: 1.2em;
+      }
+      pre {
+        font-family: 'Consolas', 'Monaco', monospace, serif;
+        font-size: 12px;
+        tab-size: 2;
+      }
+      .prefer-show {
+        display: block;
+      }
+      .prefer-hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container" id="container">
+      <div class="row">
+        <div class="col-12">
+          <h1>WebML Benchmark</h1>
+          <div>
+            <h4>Model</h4>
+            <select id="modelName">
+              <option value="mobilenet_v1_1.0_224.tflite" selected>Mobilenet V1(TFlite)</option>
+              <option value="mobilenet_v2_1.0_224.tflite">Mobilenet V2(TFlite)</option>
+              <option value="inception_v3.tflite">Inception V3(TFlite)</option>
+              <option value="inception_v4.tflite">Inception V4(TFlite)</option>
+              <option value="squeezenet.tflite">Squeezenet(TFlite)</option>
+              <option value="inception_resnet_v2.tflite">Incep. Res. V2(TFlite)</option>
+              <option value="squeezenet1.1.onnx">SqueezeNet(Onnx)</option>
+              <option value="mobilenetv2-1.0.onnx">Mobilenet v2(Onnx)</option>
+              <option value="resnet50v1.onnx">ResNet50 v1(Onnx)</option>
+              <option value="resnet50v2.onnx">ResNet50 v2(Onnx)</option>
+              <option value="inceptionv2.onnx">Inception v2(Onnx)</option>
+              <option value="densenet121.onnx">DenseNet(Onnx)</option>
+              <option value="ssd_mobilenet.tflite">SSD MobileNet(TFlite)</option>
+              <option value="posenet">PoseNet</option>
+            </select>
+          </div>
+          <div>
+            <h4>Framework and backends</h4>
+            <select id="configurations">
+            </select>
+          </div>
+          <div id="preferDiv" class="prefer-hidden">
+            <h4>Preference</h4>
+            <select id="preferSelect">
+              <option value="sustained" selected>SUSTAINED_SPEED</option>
+              <option value="fast">FAST_SINGLE_ANSWER</option>
+              <option value="low">LOW_POWER</option>
+            </select>
+          </div>
+          <div>
+            <h4>Iterations</h4>
+            1(warming up) + <input type="number" id="iteration" min="1" size="4" value="200"/>
+          </div>
+          <div class="row top-margin">
+            <div class="col">
+            </div>
+            <div class="col-8" align="center">
+              <canvas id="poseCanvas"></canvas>
+              <canvas id="poseCanvasPredict" width="513" height="513"></canvas>
+              <canvas id="canvas"></canvas>
+              <img id="image" crossorigin="anonymous" class="img-fluid" alt="Responsive image" src="../examples/image_classification/img/bee_eater.jpg">
+              <img id="imageClassificationImage" hidden crossorigin="anonymous" class="img-fluid" alt="Responsive image" src="../examples/image_classification/img/bee_eater.jpg">
+              <img id="poseImage" hidden  crossorigin="anonymous" class="img-fluid" alt="Responsive image" src="../examples/posenet/download.png">
+              <img id="ssdMobileImage" hidden crossorigin="anonymous" class="img-fluid" alt="Responsive image" src="../examples/ssd_mobilenet/img/image1.jpg">
+            </div>
+            <div class="col">
+            </div>
+          </div>
+          <div class="row top-margin">
+            <div class="col">
+            </div>
+            <div class="col" align="center">
+              <label id="pickButton" class="btn btn-primary">Pick Image <input type="file" id="input" accept="image/*" hidden>
+              </label>
+            </div>
+            <div class="col">
+            </div>
+          </div>
+          <button type="button" id="runButton" class="btn btn-primary disabled">Run</button>
+            (It will take several minutes)
+          <div>
+            <pre id="log"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="../dist/webml-polyfill.js"></script>
+    <script src="../examples/util/base.js"></script>
+
+    <script src="../examples/third_party/protobuf.min.js"></script>
+    <script src="../examples/util/tflite/flatbuffers/js/flatbuffers.js"></script>
+    <script src="../examples/util/tflite/schema/schema_generated.js"></script>
+    <script src="../examples/util/tflite/TfLiteModelUtils.js"></script>
+    <script src="../examples/util/tflite/TFliteModelImporter.js"></script>
+    <script src="../examples/util/onnx/onnx.js"></script>
+    <script src="../examples/util/onnx/OnnxModelUtils.js"></script>
+    <script src="../examples/util/onnx/OnnxModelImporter.js"></script>
+
+    <script src="../examples/posenet/src/decodePose.js"></script>
+    <script src="../examples/posenet/src/helperFunc.js"></script>
+    <script src="../examples/posenet/utils.js"></script>
+    <script src="../examples/posenet/src/PoseNet.js"></script>
+    <script src="../examples/posenet/src/DrawOutputs.js"></script>
+    <script src="../examples/ssd_mobilenet/DrawOutputs.js"></script>
+    <script src="../examples/ssd_mobilenet/SsdMobileNet.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
