@@ -3,7 +3,7 @@
 
 MacOS | Linux
 -------- | --------
-[![Build Status](https://www.travis-ci.org/zhaoming0/test.svg?branch=master)](https://www.travis-ci.org/zhaoming0/test) | [![CircleCI](https://circleci.com/gh/zhaoming0/test/tree/master.svg?style=svg)](https://circleci.com/gh/zhaoming0/test/tree/master)
+[![Build Status](https://www.travis-ci.org/BruceDai/testCircleCI.svg?branch=master)](https://www.travis-ci.org/BruceDai/testCircleCI) | [![CircleCI](https://circleci.com/gh/BruceDai/testCircleCI/tree/master.svg?style=svg)](https://circleci.com/gh/BruceDai/testCircleCI/tree/master)
 
 
 ## Development / Testing
